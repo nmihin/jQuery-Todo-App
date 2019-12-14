@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>                    
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sort</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/sort.css" rel="stylesheet">
+    <script src="js/jquery-1.7.1.js"></script>
+    <script src="js/jquery.validate.min.js"></script>  
+    <script src="js/sorttable.js"></script>  
+    <script>
+    $(document).ready(function(){
+      $("#form-main").validate({
+        messages: {
+          id: {
+          required: "Upišite id",
+          number: "Vrijednost mora biti broj"
+          },
+          name: {
+          required: "Upišite ime i prezime"
+          },
+          points: {
+          required: "Upišite broj bodova",
+          number: "Vrijednost mora biti broj"
+          }
+        },
+        success: "valid",
+        submitHandler: function() { 
+        addData();
+        }   
+      });
+      //SORT
+      $('#example1_table').sortTable({
+           onCol: 1,
+           keepRelationships: true
+      });        
+    });
+     
+      function addData(){
+        var inputVal; //vrijednost svakog inputa    
+        $('<tr class="sortable"></tr>').prependTo($('#input-form'));
+        $('.input-val').each(function(){
+         inputVal = $(this).val();
+         $('#input-form tr').first().append('<td>'+inputVal+'</td>');
+         });
+      }
+    
+    </script>
+</head>
+<body>            
+<div id="container">    
+   <form id="form-main">
+    <table id="table" class="sortable">
+      <thead id="row-head">
+        <tr>
+          <th>Id</th>
+          <th>Ime i prezime</th>
+          <th>Broj bodova</th>
+        </tr>
+      </thead>
+      <tfoot>
+      	<tr>
+      		  <td><input class="input-val required number" name="id" type="text" placeholder="Id" /></td>
+      		  <td><input class="input-val required" name="name" type="text" placeholder="Ime i prezime" /></td>
+      		  <td><input class="input-val required number" name="points" type="text" placeholder="Broj bodova" /></td>
+      	</tr>
+      </tfoot>
+      <tbody id="input-form">
+
+      </tbody>
+    </table>
+       <input id="add-data" type="submit" value="Dodaj" />
+   </form> 
+</div> 
+
+</body>
+</html>
